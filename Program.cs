@@ -4,31 +4,45 @@ using System.IO.Compression;
 
 namespace ArchiveCreator
 {
-    class Program
+    class Archive
     {
-        //When program is run successfully 
-        //this will be the output
-        public string Success(string input)
+
+        //These static strings are used for 
+        //information handling they will be
+        //color coordinated so you can see
+        //what kind of information is being 
+        //passed to you
+        static string Success(string input)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(input);
             return input;
         }
 
-        //When program encounters an error 
-        //this will be the output
-        public string Warn(string input)
+        static string Warn(string input)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(input);
             return input;
         }
 
-        //When program has information to show
-        //this will be the output
-        public string Say(string input)
+        static string Say(string input)
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(input);
+            return input;
+        }
+
+        static string FatalErr(string input)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(input);
+            return input;
+        }
+
+        static string MinorErr(string input)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(input);
             return input;
         }
@@ -39,33 +53,31 @@ namespace ArchiveCreator
             //These variables are used to create a
             //random string that will be used as the
             //zip files name
-            var chars = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var stringChars = new char[8];
+            var chars = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            var randFileName = new char[4];
             var random = new Random();
 
-            //Info is used as provide the type of
-            //information that will be displayed
-            //by the program
-            Program info = new Program();
-
             //Create the zip file name
-            for (int i = 0; i < stringChars.Length; i++)
+            for (int i = 0; i < randFileName.Length; i++)
             {
-                stringChars[i] = chars[random.Next(chars.Length)];
+                randFileName[i] = chars[random.Next(chars.Length)];
             }
-            string finalString = new String(stringChars);
+            string finalString = new String(randFileName);
 
-            info.Say("Starting file extraction..");
+            Say("Starting file extraction..");
 
+            string day = DateTime.Now.ToString("MM-dd-yy ");
             string userName = Environment.UserName;
             string startDir = $"c:/users/{userName}/test_folder";
-            string zipDir = $"c:/users/{userName}/archive/{finalString}.zip";
+            string zipDir = $"c:/users/{userName}/archive/{day}{finalString}.zip";
             string dirName = $"c:/users/{userName}/archive";
+            string[] files = Directory.GetFiles(startDir);
 
             //Check if the directory exists
+            Say("Attempting to create archive directory..");
             if (Directory.Exists(dirName))
             {
-                info.Say("Directory already exists, resuming");
+                MinorErr("Directory already exists, resuming extraction process");
             }
             else
             {
@@ -75,15 +87,17 @@ namespace ArchiveCreator
 
             try
             {
+                //Attempt to extract to zip file
                 ZipFile.CreateFromDirectory(startDir, zipDir);
+                Success($"Extracted files successfully to: {zipDir}");
             }
             catch (Exception e)
             {
-                info.Warn($"Error: {e}");
+                FatalErr("Something went wrong and the program cannot continue, exiting process..");
             }
-            info.Success($"Extracted files successfully to: {zipDir}");
-            info.Say("Press enter to exit..");
+            Say("Press enter to exit..");
             Console.ReadLine();
         }
+        
     }
 }
