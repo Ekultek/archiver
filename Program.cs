@@ -50,7 +50,6 @@ namespace ArchiveCreator
         //Main method
         static void Main(string[] args)
         {
-            var startTime = DateTime.Now;
 
             //These variables are used to create a
             //random string that will be used as the
@@ -106,9 +105,6 @@ namespace ArchiveCreator
                 FatalErr("Writing error to file for further analysis.");
                 File.WriteAllText($"{programPath}/log/errorlog.txt", e.ToString());
             }
-
-            var endTime = startTime - DateTime.Now;
-            Say($"Process finished in: {endTime}");
 
             Say("Press enter to exit..");
             Console.ReadLine();
