@@ -50,6 +50,8 @@ namespace ArchiveCreator
         //Main method
         static void Main(string[] args)
         {
+            var startTime = DateTime.Now;
+
             //These variables are used to create a
             //random string that will be used as the
             //zip files name
@@ -71,7 +73,6 @@ namespace ArchiveCreator
             string startDir = $"c:/users/{userName}/test_folder";
             string zipDir = $"c:/users/{userName}/archive/{day}{finalString}.zip";
             string dirName = $"c:/users/{userName}/archive";
-            string[] files = Directory.GetFiles(startDir);
 
             //Check if the directory exists
             Say("Attempting to create archive directory..");
@@ -82,22 +83,35 @@ namespace ArchiveCreator
             else
             {
                 //Create it if it doesn't
+                Warn($"Creating archive directory here: {dirName}");
                 Directory.CreateDirectory(dirName);
+                Say("Directory created, resuming process..");
             }
 
             try
             {
                 //Attempt to extract to zip file
-                ZipFile.CreateFromDirectory(startDir, zipDir);
+                Say($"Attempting to extract files into: {zipDir}");
+                ZipFile.CreateFromDirectory(startDir, zipDir, CompressionLevel.Fastest, true);
                 Success($"Extracted files successfully to: {zipDir}");
             }
             catch (Exception e)
             {
-                FatalErr("Something went wrong and the program cannot continue, exiting process..");
+
+                //Catch any error that occurs during
+                //the archiving stage and log the error
+                //to a text file for further analysis
+                var programPath = System.Reflection.Assembly.GetExecutingAssembly();
+                FatalErr($"Something went wrong and the program cannot continue, exiting process with error code {e}..");
+                FatalErr("Writing error to file for further analysis.");
+                File.WriteAllText($"{programPath}/log/errorlog.txt", e.ToString());
             }
+
+            var endTime = startTime - DateTime.Now;
+            Say($"Process finished in: {endTime}");
+
             Say("Press enter to exit..");
             Console.ReadLine();
         }
-        
     }
 }

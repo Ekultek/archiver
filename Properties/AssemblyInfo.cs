@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ArchiveCreator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Archive files into a zip file quickly and efficiently")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Dell, Inc.")]
+[assembly: AssemblyCompany("No assembly company")]
 [assembly: AssemblyProduct("ArchiveCreator")]
-[assembly: AssemblyCopyright("Copyright © Dell, Inc. 2016")]
+[assembly: AssemblyCopyright("You are herby granted to make copies, sell, and or distribute this program free of charge")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
