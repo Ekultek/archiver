@@ -75,10 +75,12 @@ namespace ArchiveCreator
 
             //Check if the directory exists
             Say("Attempting to create archive directory..");
+
             if (Directory.Exists(dirName))
             {
                 MinorErr("Directory already exists, resuming extraction process");
             }
+
             else
             {
                 //Create it if it doesn't
@@ -92,11 +94,11 @@ namespace ArchiveCreator
                 //Attempt to extract to zip file
                 Say($"Attempting to extract files into: {zipDir}");
                 ZipFile.CreateFromDirectory(startDir, zipDir, CompressionLevel.Fastest, true);
-                Success($"Extracted files successfully to: {zipDir}");
+                Success($"Extracted file successfully to: {zipDir}");
             }
+
             catch (Exception e)
             {
-
                 //Catch any error that occurs during
                 //the archiving stage and log the error
                 //to a text file for further analysis
