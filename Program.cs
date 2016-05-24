@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Security;
 
 namespace ArchiveCreator
 {
@@ -14,13 +15,12 @@ namespace ArchiveCreator
      * Green => Good
      */
 
-    public interface Information
+    public interface ILogger
     {
         string Say(string input);
         string Success(string input);
         string Warn(string input);
         string FatalErr(string input);
-        string MinorErr(string input);
     }
 
     /* 
@@ -30,7 +30,7 @@ namespace ArchiveCreator
      * information displayed from the interface.
      */
 
-    public class ConsoleReport : Information
+    public class ConsoleReport : ILogger
     {
         public string Success(string input)
         {
@@ -59,14 +59,6 @@ namespace ArchiveCreator
             Console.WriteLine(input);
             return input;
         }
-
-        public string MinorErr(string input)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(input);
-            return input;
-        }
-
     }
 
     /* 
@@ -85,47 +77,41 @@ namespace ArchiveCreator
         //Main method
         static void Main(string[] args)
         {
-
             /* 
              * Create the variables that will store
-             * the required information. Basically
-             * these are the information handling variable
-             * that is derived from the class and a random
-             * filename so that you won't overwrite
-             * one of your zip files.
+             * the required information. 
              */
 
-            Information info = new ConsoleReport();
+            ILogger info = new ConsoleReport();
             string randFileName = Path.GetRandomFileName();
 
             info.Say("Starting file extraction..");
 
             /* 
-             * These variables are required in order to run
-             * the program successfully. The day variable is
+             * The day variable is
              * to add a day of archiving to the zip filename
              * this will help if you have a lot of zip files
-             * and a lot of folders in that directory.
+             * that directory.
              */
 
+            var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string day = DateTime.Now.ToString("MM-dd-yy ");
-            string userName = Environment.UserName;
-            string startDir = $"c:/users/{userName}/test_folder";
-            string zipDir = $"c:/users/{userName}/archive/{day}{randFileName}.zip";
-            string dirName = $"c:/users/{userName}/archive";
+            string startDir = $@"{profileDir}\test_folder";
+            string zipDir = $@"{profileDir}\archive\{day}::{randFileName}.zip";
+            string dirName = $@"{profileDir}\archive";
 
             //Check if the directory exists
             info.Say("Attempting to create archive directory..");
 
             if (Directory.Exists(dirName))
             {
-                info.MinorErr("Directory already exists, resuming extraction process");
+                info.Success("Directory already exists, resuming extraction process");
             }
 
             else
             {
                 //Create it if it doesn't
-                info.Warn($"Creating archive directory here: {dirName}");
+                info.Say($"Creating archive directory here: {dirName}");
                 Directory.CreateDirectory(dirName);
                 info.Say("Directory created, resuming process..");
             }
@@ -136,21 +122,22 @@ namespace ArchiveCreator
                 info.Say($"Attempting to extract files into: {zipDir}");
                 Zip(startDir, zipDir);
                 info.Success($"Extracted file successfully to: {zipDir}");
+                Console.WriteLine("Process finished in {0} seconds", endTime);
             }
 
             catch (Exception e)
             {
-
                 /* 
                  * Catch any error that occurs during
                  * the archiving stage and log the error
                  * to a text file for further analysis
                  */
 
-                var programPath = System.Reflection.Assembly.GetExecutingAssembly();
+                var programPath = AppDomain.CurrentDomain.BaseDirectory;
                 info.FatalErr($"Something went wrong and the program cannot continue, exiting process with error code {e}..");
                 info.FatalErr("Writing error to file for further analysis.");
                 File.WriteAllText($"{programPath}/log/errorlog.txt", e.ToString());
+                Environment.Exit(2);
             }
 
             info.Say("Press enter to exit..");
