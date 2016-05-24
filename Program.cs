@@ -90,10 +90,11 @@ namespace ArchiveCreator
             info.Say("Starting file extraction..");
 
             /* 
-             * The day variable is
-             * to add a day of archiving to the zip filename
-             * this will help if you have a lot of zip files
-             * that directory.
+             * The day variable is to add a day of archiving to 
+             * the zip filename this will help if you have a lot 
+             * of zip files in that directory. The folder variable
+             * is to allow the user the ability to choose which
+             * folder they want to archive from.
              */
 
             string folder;
@@ -106,7 +107,7 @@ namespace ArchiveCreator
             string zipDir = $@"{profileDir}\archive\{day}{randFileName}.zip";
             string dirName = $@"{profileDir}\archive";
 
-            //Check if the directory exists
+            //Check if the archive directory exists
             info.Say("Attempting to create archive directory..");
 
             if (Directory.Exists(dirName))
@@ -116,7 +117,7 @@ namespace ArchiveCreator
 
             else
             {
-                //Create it if it doesn't
+                //Create archive directory if it doesn't exist
                 info.Say($"Creating archive directory here: {dirName}");
                 Directory.CreateDirectory(dirName);
                 info.Say("Directory created, resuming process..");
@@ -124,7 +125,7 @@ namespace ArchiveCreator
 
             try
             {
-                //Attempt to extract to zip file
+                //Attempt to extract folder to zip file
                 info.Say($"Attempting to extract files into: {zipDir}");
                 Zip(startDir, zipDir);
                 info.Success($"Extracted file successfully to: {zipDir}");
@@ -133,9 +134,9 @@ namespace ArchiveCreator
             catch (Exception e)
             {
                 /* 
-                 * Catch any error that occurs during
-                 * the archiving stage and log the error
-                 * to a text file for further analysis
+                 * Catch any error that occurs during the 
+                 * archiving stage and log the error to a 
+                 * text file for further analysis.
                  */
 
                 var programPath = AppDomain.CurrentDomain.BaseDirectory;
