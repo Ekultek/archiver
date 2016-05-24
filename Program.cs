@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Diagnostics;
+using System.Linq;
 
 namespace ArchiveCreator
 {
@@ -68,6 +70,7 @@ namespace ArchiveCreator
 
     class Archive
     {
+
         static void Zip(string fromDir, string zipName)
         {
             ZipFile.CreateFromDirectory(fromDir, zipName, CompressionLevel.Fastest, true);
