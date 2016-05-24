@@ -1,0 +1,6 @@
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\bin\Release\ArchiveCreator.pdb
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\obj\Release\ArchiveCreator.pdb
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\bin\Release\ArchiveCreator.exe.config
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\bin\Release\ArchiveCreator.exe
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\obj\Release\ArchiveCreator.exe
+C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\obj\Release\ArchiveCreator.csprojResolveAssemblyReference.cache
