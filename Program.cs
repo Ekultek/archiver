@@ -96,9 +96,13 @@ namespace ArchiveCreator
              * that directory.
              */
 
+            string folder;
+            Console.Write("Enter folder to extract from: ");
+            folder = Console.ReadLine();
+
             var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string day = DateTime.Now.ToString("MM-dd-yy ");
-            string startDir = $@"{profileDir}\test_folder";
+            string startDir = $@"{profileDir}\{folder}";
             string zipDir = $@"{profileDir}\archive\{day}{randFileName}.zip";
             string dirName = $@"{profileDir}\archive";
 
