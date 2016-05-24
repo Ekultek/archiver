@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Security;
 
 namespace ArchiveCreator
 {
@@ -97,7 +96,7 @@ namespace ArchiveCreator
             var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string day = DateTime.Now.ToString("MM-dd-yy ");
             string startDir = $@"{profileDir}\test_folder";
-            string zipDir = $@"{profileDir}\archive\{day}::{randFileName}.zip";
+            string zipDir = $@"{profileDir}\archive\{day}{randFileName}.zip";
             string dirName = $@"{profileDir}\archive";
 
             //Check if the directory exists
@@ -122,7 +121,6 @@ namespace ArchiveCreator
                 info.Say($"Attempting to extract files into: {zipDir}");
                 Zip(startDir, zipDir);
                 info.Success($"Extracted file successfully to: {zipDir}");
-                Console.WriteLine("Process finished in {0} seconds", endTime);
             }
 
             catch (Exception e)

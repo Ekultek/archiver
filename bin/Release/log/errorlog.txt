@@ -1,4 +1,4 @@
 System.NotSupportedException: The given path's format is not supported.
    at System.Security.Permissions.FileIOPermission.QuickDemand(FileIOPermissionAccess access, String fullPath, Boolean checkForDuplicates, Boolean needFullPath)
    at System.IO.Compression.ZipFile.DoCreateFromDirectory(String sourceDirectoryName, String destinationArchiveFileName, Nullable`1 compressionLevel, Boolean includeBaseDirectory, Encoding entryNameEncoding)
-   at ArchiveCreator.Archive.Main(String[] args) in C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\Program.cs:line 125
+   at ArchiveCreator.Archive.Main(String[] args) in C:\Users\thomas_j_perkins\bin\cs\ArchiveCreator\Program.cs:line 122
