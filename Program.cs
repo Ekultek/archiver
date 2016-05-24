@@ -1,19 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Diagnostics;
-using System.Linq;
 
 namespace ArchiveCreator
 {
     /* 
-     * This interface is used as a set point
-     * for the information handling. All information
-     * will be color coordinated in order to 
-     * show the severity of what's happening with
-     * the program itself. IE:
-     * Red => Bad
-     * Green => Good
+     * This interface is used as a set point for 
+     * the information handling. All information will 
+     * be color coordinated in order to show the severity
+     * of what's happening with the program itself. 
+     * IE:
+     *    Red => Bad
+     *    Green => Good
      */
 
     public interface ILogger
@@ -25,10 +23,9 @@ namespace ArchiveCreator
     }
 
     /* 
-     * This class is where the interface is
-     * inherited from. Basically this will
-     * contain the color coordinating of the
-     * information displayed from the interface.
+     * This class is where the interface is inherited from. 
+     * Basically this will contain the color coordinating of 
+     * the information displayed from the interface.
      */
 
     public class ConsoleReport : ILogger
@@ -63,9 +60,8 @@ namespace ArchiveCreator
     }
 
     /* 
-     * Main class of the program, basically this
-     * class is what makes the program actually
-     * run.
+     * Main class of the program, basically this class 
+     * is what makes the program actually run.
      */
 
     class Archive
@@ -73,6 +69,7 @@ namespace ArchiveCreator
 
         static void Zip(string fromDir, string zipName)
         {
+            //Zip creator method
             ZipFile.CreateFromDirectory(fromDir, zipName, CompressionLevel.Fastest, true);
         }
 
@@ -88,14 +85,6 @@ namespace ArchiveCreator
             string randFileName = Path.GetRandomFileName();
 
             info.Say("Starting file extraction..");
-
-            /* 
-             * The day variable is to add a day of archiving to 
-             * the zip filename this will help if you have a lot 
-             * of zip files in that directory. The folder variable
-             * is to allow the user the ability to choose which
-             * folder they want to archive from.
-             */
 
             string folder;
             Console.Write("Enter folder to extract from: ");
@@ -134,9 +123,9 @@ namespace ArchiveCreator
             catch (Exception e)
             {
                 /* 
-                 * Catch any error that occurs during the 
-                 * archiving stage and log the error to a 
-                 * text file for further analysis.
+                 * Catch any error that occurs during the archiving 
+                 * stage and log the error to a text file for further 
+                 * analysis.
                  */
 
                 var programPath = AppDomain.CurrentDomain.BaseDirectory;
