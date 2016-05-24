@@ -96,7 +96,7 @@ namespace ArchiveCreator
              */
 
             Information info = new ConsoleReport();
-            string finalString = Path.GetRandomFileName();
+            string randFileName = Path.GetRandomFileName();
 
             info.Say("Starting file extraction..");
 
@@ -111,7 +111,7 @@ namespace ArchiveCreator
             string day = DateTime.Now.ToString("MM-dd-yy ");
             string userName = Environment.UserName;
             string startDir = $"c:/users/{userName}/test_folder";
-            string zipDir = $"c:/users/{userName}/archive/{day}{finalString}.zip";
+            string zipDir = $"c:/users/{userName}/archive/{day}{randFileName}.zip";
             string dirName = $"c:/users/{userName}/archive";
 
             //Check if the directory exists
